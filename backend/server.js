@@ -2,6 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const http = require('http');
+const WebSocket = require('ws');
+
+// Import routes
 const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const appointmentRoutes = require('./routes/appointmentRoutes');
@@ -13,9 +17,9 @@ const app = express();
 
 // Configure CORS
 app.use(cors({
-  origin: process.env.FRONTEND_URL, // Replace with your actual frontend URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],    // Allowed HTTP methods
-  credentials: true                             // Allow credentials if needed (e.g., cookies)
+  origin: process.env.FRONTEND_URL, // Use the frontend URL from .env
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
 }));
 
 app.use(express.json());
@@ -28,7 +32,7 @@ mongoose.connect(process.env.MONGODB_URI, {
   .then(() => console.log('MongoDB connected'))
   .catch((error) => console.error('MongoDB connection error:', error));
 
-// Root route to display a simple message on home
+// Root route to display "API is working" in JSON format
 app.get('/', (req, res) => {
   res.json({ message: 'API is working' });
 });
@@ -40,7 +44,26 @@ app.use('/api/appointments', appointmentRoutes);
 app.use('/api/teacher', teacherRoutes);
 app.use('/api/availability', availabilityRoutes);
 
+// Create HTTP server and WebSocket server
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server, path: "/ws" }); // WebSocket server on "/ws" path
+
+// WebSocket connection handling
+wss.on('connection', (ws) => {
+  console.log('WebSocket client connected');
+  
+  ws.on('message', (message) => {
+    console.log('Received message from client:', message);
+    ws.send('Message received'); // Acknowledge message from client
+  });
+  
+  ws.on('close', () => {
+    console.log('WebSocket client disconnected');
+  });
+});
+
+// Start server on the defined port
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
