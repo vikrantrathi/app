@@ -2,8 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const http = require('http');
-const WebSocket = require('ws');
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -44,26 +42,8 @@ app.use('/api/appointments', appointmentRoutes);
 app.use('/api/teacher', teacherRoutes);
 app.use('/api/availability', availabilityRoutes);
 
-// Create HTTP server and WebSocket server
-const server = http.createServer(app);
-const wss = new WebSocket.Server({ server, path: "/ws" }); // WebSocket server on "/ws" path
-
-// WebSocket connection handling
-wss.on('connection', (ws) => {
-  console.log('WebSocket client connected');
-  
-  ws.on('message', (message) => {
-    console.log('Received message from client:', message);
-    ws.send('Message received'); // Acknowledge message from client
-  });
-  
-  ws.on('close', () => {
-    console.log('WebSocket client disconnected');
-  });
-});
-
 // Start server on the defined port
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
