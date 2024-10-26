@@ -7,17 +7,31 @@ const adminRoutes = require('./routes/adminRoutes');
 const appointmentRoutes = require('./routes/appointmentRoutes');
 const teacherRoutes = require('./routes/teacherRoutes'); 
 const availabilityRoutes = require('./routes/availabilityRoutes');
+
 dotenv.config();
 const app = express();
-app.use(cors());
+
+// Configure CORS
+app.use(cors({
+  origin: process.env.FRONTEND_URL, // Replace with your actual frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],    // Allowed HTTP methods
+  credentials: true                             // Allow credentials if needed (e.g., cookies)
+}));
+
 app.use(express.json());
 
+// MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
   .then(() => console.log('MongoDB connected'))
   .catch((error) => console.error('MongoDB connection error:', error));
+
+// Root route to display a simple message on home
+app.get('/', (req, res) => {
+  res.json({ message: 'API is working' });
+});
 
 // Routes setup
 app.use('/api/auth', authRoutes);
