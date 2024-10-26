@@ -24,7 +24,7 @@ const TeacherDashboard = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/teacher/appointments', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/teacher/appointments`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

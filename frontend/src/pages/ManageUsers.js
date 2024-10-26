@@ -30,7 +30,7 @@ const ManageUsers = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/admin/users', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

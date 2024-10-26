@@ -20,7 +20,7 @@ const StudentDashboard = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/appointments/student/stats', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/appointments/student/stats`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setStats(response.data);
@@ -36,7 +36,7 @@ const StudentDashboard = () => {
   const fetchTodayAppointments = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/appointments/student/today', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/appointments/student/today`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTodayAppointments(response.data);

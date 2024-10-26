@@ -39,7 +39,7 @@ const ManageAvailability = () => {
   const fetchAvailability = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/availability', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/availability`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setAvailability(response.data);
@@ -77,7 +77,7 @@ const ManageAvailability = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        'http://localhost:5000/api/availability/add',
+        `${process.env.REACT_APP_API_URL}/api/availability/add`,
         { date: selectedDate, timeSlots: selectedSlots },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -98,7 +98,7 @@ const ManageAvailability = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        `http://localhost:5000/api/availability/${availabilityId}/deleteSlot`,
+        `${process.env.REACT_APP_API_URL}/api/availability/${availabilityId}/deleteSlot`,
         { slot },
         { headers: { Authorization: `Bearer ${token}` } }
       );

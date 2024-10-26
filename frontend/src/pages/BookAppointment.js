@@ -25,7 +25,7 @@ const BookAppointment = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/teacher/teachers', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/teacher/teachers`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTeachers(response.data);
@@ -42,7 +42,7 @@ const BookAppointment = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get(
-        `http://localhost:5000/api/teacher/teachers/${teacherId}/slots?date=${selectedDate}`,
+        `${process.env.REACT_APP_API_URL}/api/teacher/teachers/${teacherId}/slots?date=${selectedDate}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -70,7 +70,7 @@ const BookAppointment = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        'http://localhost:5000/api/appointments',
+        `${process.env.REACT_APP_API_URL}/api/appointments`,
         {
           teacherId,
           date: selectedDate,

@@ -21,12 +21,12 @@ const AdminDashboard = () => {
       setLoading(true);
       const token = localStorage.getItem('token');
       
-      const usersResponse = await axios.get('http://localhost:5000/api/admin/users', {
+      const usersResponse = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      const appointmentsResponse = await axios.get('http://localhost:5000/api/admin/appointments', {
+      const appointmentsResponse = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/appointments`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -62,7 +62,7 @@ const AdminDashboard = () => {
   const handleApprove = async (userId) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:5000/api/admin/approve/${userId}`, {}, {
+      await axios.put(`${process.env.REACT_APP_API_URL}/api/admin/approve/${userId}`, {}, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -77,7 +77,7 @@ const AdminDashboard = () => {
   const handleReject = async (userId) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/admin/reject/${userId}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/admin/reject/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

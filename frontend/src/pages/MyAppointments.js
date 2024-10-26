@@ -20,7 +20,7 @@ const MyAppointments = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/appointments/student', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/appointments/student`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setAppointments(response.data);
@@ -45,7 +45,7 @@ const MyAppointments = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        `http://localhost:5000/api/appointments/${appointmentId}/cancel`,
+        `${process.env.REACT_APP_API_URL}/api/appointments/${appointmentId}/cancel`,
         { cancellationReason: reason },
         {
           headers: { Authorization: `Bearer ${token}` },

@@ -27,7 +27,7 @@ const TeacherAppointments = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/appointments/teacher', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/appointments/teacher`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setAppointments(response.data);
@@ -46,7 +46,7 @@ const TeacherAppointments = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        `http://localhost:5000/api/appointments/${appointmentId}/approve`,
+        `${process.env.REACT_APP_API_URL}/api/appointments/${appointmentId}/approve`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -66,7 +66,7 @@ const TeacherAppointments = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        `http://localhost:5000/api/appointments/${selectedAppointment._id}/reject`,
+        `${process.env.REACT_APP_API_URL}/api/appointments/${selectedAppointment._id}/reject`,
         { reason: rejectionReason },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -87,7 +87,7 @@ const TeacherAppointments = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        `http://localhost:5000/api/appointments/${selectedAppointment._id}/reschedule`,
+        `${process.env.REACT_APP_API_URL}/api/appointments/${selectedAppointment._id}/reschedule`,
         { newDate: rescheduleDate, newTimeSlot: rescheduleTimeSlot, rescheduleReason },
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -21,7 +21,7 @@ const ViewAppointments = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/appointments/all', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/appointments/all`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setAppointments(response.data);

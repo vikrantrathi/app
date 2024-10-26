@@ -9,7 +9,7 @@ const ManageAppointments = () => {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/teacher/appointments', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/teacher/appointments`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -26,7 +26,7 @@ const ManageAppointments = () => {
   const updateStatus = async (appointmentId, status) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/teacher/appointments/${appointmentId}`,
+        `${process.env.REACT_APP_API_URL}/api/teacher/appointments/${appointmentId}`,
         { status },
         {
           headers: {
