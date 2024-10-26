@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+  font-family: 'Roboto', sans-serif;
+}
+/* Add this to your global CSS or component-specific styles */
+.main-content {
+  margin-left: 185px; /* Adjust this value based on the width of your sidebar */
+}
