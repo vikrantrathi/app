@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const availabilitySchema = new mongoose.Schema({
   teacherId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -17,5 +16,4 @@ const availabilitySchema = new mongoose.Schema({
     },
   ],
 });
-
 module.exports = mongoose.model('Availability', availabilitySchema);
